@@ -24,8 +24,8 @@ public class Producer implements Runnable {
             int t1 = (int) (Math.random() * t);
 
             try {
-                System.out.println(Thread.currentThread().getName());
-                Thread.currentThread().sleep(t1);
+                System.out.println(Thread.currentThread().getName() + "produced," + "will be going to sleep");
+                Thread.currentThread().sleep(t1 * 1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 System.out.println(e);
