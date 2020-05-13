@@ -1,6 +1,7 @@
 public class Producer implements Runnable {
     private int[] buffer;
     private int n, k, t;
+    private int next_in = 0;
 
     public Producer(int[] buffer, int k, int t) {
         this.buffer = buffer;
@@ -9,23 +10,29 @@ public class Producer implements Runnable {
         this.n = this.buffer.length;
     }
 
+    @SuppressWarnings("static-access")
     @Override
-	public void run() {
-        // TODO Auto-generated method stub
-        while (true)
-        {  
-            int k1=
-            
-        //  generate random integer k1 using k.
-        //  for i from 0 to (k1 – 1)
-        //  {
-        //  buffer[(next_in + i) mod n] += 1
-        //  }
-        //  next_in = (next_in + k1) mod n
-        //  generate random integer t1 using t 
-        //  sleep for t1 seconds
+    public void run() {
+
+        while (true) {
+            int k1 = (int) (Math.random() * k);
+
+            for (int i = 0; i < k1; i++) {
+                buffer[(next_in + i) % n] += 1;
+            }
+            next_in = (next_in + k1) % n;
+            int t1 = (int) (Math.random() * t);
+
+            try {
+                System.out.println(Thread.currentThread().getName());
+                Thread.currentThread().sleep(t1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                System.out.println(e);
+                throw new IllegalArgumentException(e);
+            }
         }
-		
-	}
+
+    }
 
 }
